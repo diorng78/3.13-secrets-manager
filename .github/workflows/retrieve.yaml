@@ -26,16 +26,18 @@ jobs:
 
       - name: Get Secret Object
         run: |
-          secret_object=$(aws secretsmanager get-secret-value --secret-id prod/luqman/hobby --query SecretString --output json)
+          secret_object=$(aws secretsmanager get-secret-value --secret-id project/capstone/team1 --query SecretString --output json)
 
           # Parse specific keys from the secret object
-          secret_value_hobby=$(echo "$secret_object" | jq -r '. | fromjson | .luqman_hobby')
-          secret_value_food=$(echo "$secret_object" | jq -r '. | fromjson | .luqman_food')
-          secret_value_loc=$(echo "$secret_object" | jq -r '. | fromjson | .luqman_location')
+          secret_value_favourite_movie=$(echo "$secret_object" | jq -r '. | fromjson | .favourite_movie')
+          secret_value_favourite_game=$(echo "$secret_object" | jq -r '. | fromjson | .favourite_game')
+          secret_value_favourite_actor=$(echo "$secret_object" | jq -r '. | fromjson | .favourite_actor')
+          secret_value_favourite_sportsman=$(echo "$secret_object" | jq -r '. | fromjson | .favourite_sportsman')
 
-          echo "Secret value Hobby is: $secret_value_hobby"
-          echo "Secret value Food is: $secret_value_food"
-          echo "Secret value Location is: $secret_value_loc"
+          echo "Secret value favourite_movie is: $secret_value_favourite_movie"
+          echo "Secret value favourite game is: $secret_value_favourite_game"
+          echo "Secret value favourite actor is: $secret_value_favourite_actor"
+          echo "Secret value favourite sportsman is: $secret_value_favourite_sportsman"
 
   retrieve_parameters:
     runs-on: ubuntu-latest
@@ -52,9 +54,7 @@ jobs:
 
       - name: Get parameter object
         run: |
-          phone_value=$(aws ssm get-parameter --name luqman_phone --query Parameter.Value --output text)
-          echo "Luqman's phone model is: $phone_value" 
+          dior_favourite=$(aws ssm get-parameter --name dior_favourite --query Parameter.Value --output text)
+          echo "my_preference is: $dior_favourite" 
 
-          hobby_value=$(aws ssm get-parameter --name luqman_hobby --query Parameter.Value --output text)
-          echo "Luqman's hobby is: $hobby_value" 
 
